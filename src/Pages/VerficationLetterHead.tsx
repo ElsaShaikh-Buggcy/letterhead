@@ -8,20 +8,48 @@ import {
   FaUser,
 } from "react-icons/fa";
 import moment from "moment";
+import { useParams } from "react-router-dom";
+import { useGetLetterHead } from "@/service/letterhead";
+import ErrorCard from "./ErrorCard";
+// const data = {
+//   // letterHeadId: "PROP-121-232",
+//   plotNumber: "A-101",
+//   blockNumber: "B-5",
+//   plotSize: "500 sq. yards",
+//   memberName: "John Doe",
+//   memberCnic: "42101-1234567-8",
+//   date: "2025-02-11",
+//   dealerOfficeName: "ABC Property Dealers",
+//   dealerPhoneNumber: "+92 300 1234567",
+//   dealerCnic: "42101-9876543-2",
+// };
 
 export const VerficationLetterHead = () => {
-  const data = {
-    letterHeadId: "PROP-121-232",
-    plotNumber: "A-101",
-    blockNumber: "B-5",
-    plotSize: "500 sq. yards",
-    memberName: "John Doe",
-    memberCnic: "42101-1234567-8",
-    date: "2025-02-11",
-    dealerOfficeName: "ABC Property Dealers",
-    dealerPhoneNumber: "+92 300 1234567",
-    dealerCnic: "42101-9876543-2",
-  };
+  const { id } = useParams<{ id: string }>();
+
+  const { data, error, isLoading } = useGetLetterHead({
+    id: id ||'',
+  });
+  if (isLoading) {
+    return (
+      <>
+        <div className="flex min-h-screen items-center justify-center bg-gray-100 p-5">
+          <div className="relative w-full max-w-[600px] rounded-lg border border-gray-300 bg-white p-6 shadow-lg">
+            <div className="mb-6 flex flex-col items-center pb-4">
+              <h2 className="text-2xl font-bold text-gray-800">Loading...</h2>
+            </div>
+          </div>
+        </div>
+      </>
+    );
+  }
+  if (error) {
+    return (
+      <>
+        <ErrorCard />
+      </>
+    );
+  }
   return (
     <>
       <div className="flex min-h-screen items-center justify-center bg-gray-100 p-5">
@@ -37,7 +65,7 @@ export const VerficationLetterHead = () => {
             </h2>
           </div>
           <p className="absolute right-4 top-4 text-xs font-semibold text-gray-800">
-            {data?.letterHeadId}
+            {id}
           </p>
           <hr className="my-4 border-t-2 border-gray-300 shadow-sm" />
 

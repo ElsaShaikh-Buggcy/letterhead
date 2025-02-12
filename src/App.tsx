@@ -1,4 +1,3 @@
-import ErrorCard from "./Pages/ErrorCard";
 import { VerficationLetterHead } from "./Pages/VerficationLetterHead";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 function App() {
@@ -6,8 +5,8 @@ function App() {
     <>
       <Router>
         <Routes>
-          <Route path="/" element={<VerficationLetterHead />} />
-          <Route path="/error" element={<ErrorCard />} />
+          <Route path="/verify/:id" element={<VerficationLetterHead />} />
+          {/* <Route path="/error" element={<ErrorCard />} /> */}
         </Routes>
       </Router>
     </>
